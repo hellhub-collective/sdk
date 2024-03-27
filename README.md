@@ -20,7 +20,7 @@
 
 ## What is the HellHub SDK?
 
-The HellHub SDK is a TypeScript library that provides a simple and easy-to-use interface for interacting with the HellHub API. It is designed to make it easy for developers to filter and collect data from the HellHub API with full type safety out of the box.
+The HellHub SDK is a TypeScript library that provides a simple and easy-to-use interface for interacting with the HellHub API. It is designed to make it easy for developers to filter and collect data with full type safety out of the box.
 
 ## Installation
 
@@ -38,7 +38,7 @@ To use the HellHub SDK, you will need to import the `HellHub` class from the `@h
 import HellHub from "@hellhub-collective/sdk";
 ```
 
-You can then use the `HellHub` class to interact with the HellHub API. For example, you can use the `planets` method to retrieve a single or a list of planets from the HellHub API:
+You can then use the `HellHub` class to interact with the HellHub API. For example, you can use the `planets` method to retrieve a single or a list of planets:
 
 ```typescript
 // get the planet with id 1
