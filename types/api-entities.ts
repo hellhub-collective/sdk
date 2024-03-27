@@ -1,0 +1,186 @@
+import type { QueryOptions } from "types/query-generator";
+
+/**
+ * Base types
+ */
+
+export interface Entity {
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface RemoteEntity extends Entity {
+  index: number;
+}
+
+/**
+ * Model types
+ */
+
+export interface War extends RemoteEntity {
+  time: string;
+  endDate: string;
+  startDate: string;
+}
+
+export interface Sector extends RemoteEntity {
+  name: string;
+  planets: Planet[];
+}
+
+export interface Faction extends RemoteEntity {
+  name: string;
+  orders?: Order[];
+  planets: Planet[];
+  homeWorld?: Planet;
+  initialPlanets: Planet[];
+  globalEvents?: GlobalEvent;
+}
+
+export interface Planet extends RemoteEntity {
+  name: string;
+  owner?: Faction;
+  sector: Sector;
+  health: number;
+  orders?: Order[];
+  maxHealth: number;
+  players: number;
+  disabled: boolean;
+  positionX: number;
+  positionY: number;
+  statistics?: Stat;
+  attacking: Attack[];
+  defending: Attack[];
+  campaign?: Campaign;
+  regeneration: number;
+  homeWorld?: HomeWorld;
+  initialOwner?: Faction;
+  globalEvent?: GlobalEvent;
+}
+
+export interface GlobalEvent extends RemoteEntity {
+  title: string;
+  faction?: Faction;
+  message: string;
+  planets: Planet[];
+}
+
+export interface Campaign extends RemoteEntity {
+  type: number;
+  count: number;
+  planet?: Planet;
+  orders?: Order[];
+}
+
+export interface HomeWorld extends RemoteEntity {
+  faction?: Faction;
+  planet?: Planet;
+}
+
+export interface Attack extends RemoteEntity {
+  target?: Planet;
+  source?: Planet;
+}
+
+export interface Order extends RemoteEntity {
+  planet?: Planet;
+  faction?: Faction;
+  campaign?: Campaign;
+  eventType: "DEFEND" | "ATTACK";
+  health: number;
+  maxHealth: number;
+  hqNodeIndex: number;
+  startTime: string;
+  expireTime: string;
+}
+
+export interface StratagemCategory extends Entity {
+  name: string;
+}
+
+export interface Stratagem extends Entity {
+  name: string;
+  uses: string;
+  imageUrl: string;
+  activation: number;
+  codename: string | null;
+  cooldown: number | null;
+  group?: StratagemCategory;
+  keys: Array<"up" | "down" | "left" | "right">;
+}
+
+export interface Stat extends Entity {
+  deaths: number;
+  planet?: Planet;
+  revives: number;
+  accuracy: number;
+  bugKills: number;
+  timePlayed: number;
+  bulletsHit: number;
+  missionsWon: number;
+  missionTime: number;
+  bulletsFired: number;
+  missionsLost: number;
+  friendlyKills: number;
+  automatonKills: number;
+  illuminateKills: number;
+  missionSuccessRate: number;
+}
+
+export interface Report extends RemoteEntity {
+  type: number;
+  tagIds: string;
+  message: string;
+  publishedAt: string;
+}
+
+export interface Reward extends RemoteEntity {
+  type: number;
+  amount: number;
+  assignment?: Assignment;
+}
+
+export interface Assignment extends RemoteEntity {
+  type: number;
+  title: string;
+  briefing: string;
+  reward?: Reward;
+  progress: number;
+  expiresAt: string;
+  description: string;
+}
+
+/**
+ * Network request types
+ */
+
+export type QueryObject<T> = QueryOptions<T extends any[] ? T[0] : T>;
+
+export interface APIPagination {
+  page: number;
+  pageSize: number;
+  pageCount: number;
+  total: number;
+}
+
+export interface APIRequestInit<T extends Entity | Array<Entity> = any>
+  extends Omit<RequestInit, "cache"> {
+  query?: QueryObject<T>;
+  cache?: { enabled: boolean; durationMinutes: number };
+}
+
+export interface APIResponseBody<T extends Entity | Array<Entity> = any> {
+  data: T | null;
+  error: { details: string[] } | null;
+}
+
+export type APIResponsePayload<T extends Entity | Array<Entity> = any> =
+  T extends Entity[]
+    ? APIResponseBody<T> & { pagination: APIPagination }
+    : APIResponseBody<T>;
+
+export interface APIResponse<T extends Entity | Array<Entity> = any>
+  extends Omit<Response, "json"> {
+  json(): Promise<APIResponsePayload<T>>;
+}

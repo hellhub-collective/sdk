@@ -1,0 +1,67 @@
+name: "Bundle Analysis"
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  compare-bundle-sizes:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v2
+        with:
+          ref: main
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build the code
+        run: bun run build
+
+      - name: Get main branch bundle sizes
+        id: main_sizes
+        run: |
+          echo "bundle_size=$(du -sk ./dist/index.mjs | cut -f1)" >> $GITHUB_ENV
+      - name: Clean up
+        run: rm -rf node_modules/ dist/
+
+      - name: Checkout PR branch
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Build the code
+        run: bun run build
+
+      - name: Get PR branch bundle sizes
+        id: pr_sizes
+        run: |
+          echo "pr_bundle_size=$(du -sk ./dist/index.mjs | cut -f1)" >> $GITHUB_ENV
+      - name: Compute size differences
+        id: size_diffs
+        run: |
+          echo "client_diff=$((${{ env.pr_bundle_size }} - ${{ env.bundle_size }}))" >> $GITHUB_ENV
+      - name: Comment PR
+        uses: mshick/add-pr-comment@v2
+        with:
+          message-id: "bundle-size-comparison"
+          message: |
+            Thank you for contributing to the HellHub SDK fellow Helldiver! We try to keep our bundle size as small as possible, here you can see the impact of your pull request to the main bundle.
+
+            | 📦 Main                    | 🚀 PR                        | 📁 Generated Files           |
+            |----------------------------|------------------------------|------------------------------|
+            | ${{ env.bundle_size }} kB  | ${{ env.pr_bundle_size }} kB | index.mjs / index.d.ts       |
+
+            The difference between the current bundle and the one generated for your pull request is: **${{ env.client_diff }} kB**. Keep in mind that this is just an estimation and the actual difference might be smaller due to compression.
+          repo-token: "${{ github.token }}"
