@@ -1,6 +1,4 @@
 name: Publish Package to NPM and GitHub Registry
-env:
-  SDK_VERSION: ${{ github.event.inputs.tag || github.event.release.tag_name || 'canary' }}
 on:
   release:
     types:
@@ -36,6 +34,6 @@ jobs:
         run: bun prettier ./package.json --write
 
       - name: Release
-        run: npm publish --access public --tag ${{ env.SDK_VERSION }}
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
