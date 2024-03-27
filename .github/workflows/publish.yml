@@ -31,11 +31,11 @@ jobs:
 
       - name: Build Package
         run: bun run build
-
-      - name: Change version
-        run: bun run scripts/version.ts --v ${{ env.SDK_VERSION }}
+        
+      - name: Format package.json
+        run: bun prettier ./package.json --write
 
       - name: Release
-        run: npm publish --access public
+        run: npm publish --access public --tag ${{ env.SDK_VERSION }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
