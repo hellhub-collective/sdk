@@ -1,4 +1,6 @@
 name: Publish Package to NPM and GitHub Registry
+env:
+  SDK_VERSION: ${{ github.event.inputs.tag || github.event.release.tag_name || 'canary' }}
 on:
   release:
     types:
@@ -29,6 +31,9 @@ jobs:
 
       - name: Build Package
         run: bun run build
+
+      - name: Change version
+        run: bun run scripts/version.ts --v ${{ env.SDK_VERSION }}
 
       - name: Release
         run: npm publish --access public
