@@ -16,6 +16,12 @@
   <a href="https://github.com/hellhub-collective/sdk/actions/workflows/test.yml">
     <img src="https://github.com/hellhub-collective/sdk/actions/workflows/test.yml/badge.svg" alt="Tests" />
   </a>
+  <a href="https://bundlephobia.com/package/@hellhub-collective/sdk">
+    <img src="https://img.shields.io/bundlephobia/min/@hellhub-collective/sdk" alt="Bundle Size (Minified)" />
+  </a>
+  <a href="https://bundlephobia.com/package/@hellhub-collective/sdk">
+    <img src="https://img.shields.io/bundlephobia/minzip/@hellhub-collective/sdk" alt="alt="Bundle Size (Minified & Zipped)" />
+  </a>
 </p>
 
 ## What is the HellHub SDK?
