@@ -1,0 +1,36 @@
+name: Publish Package to NPM Registry
+on:
+  release:
+    types:
+      - published
+jobs:
+  publish-npm:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install Dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Test Package
+        run: bun test
+
+      - name: Build Package
+        run: bun run build
+
+      - name: Release
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
