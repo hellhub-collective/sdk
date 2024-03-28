@@ -29,7 +29,6 @@ export type FieldOperator<T, K extends keyof T> = {
   $equals?: T[K];
   $in?: Array<T[K]>;
   $notIn?: Array<T[K]>;
-  $mode?: "default" | "insensitive";
 } & (T[K] extends string
   ? {
       $search?: T[K];
