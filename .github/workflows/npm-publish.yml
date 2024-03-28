@@ -29,9 +29,6 @@ jobs:
 
       - name: Build Package
         run: bun run build
-        
-      - name: Format package.json
-        run: bun prettier ./package.json --write
 
       - name: Release
         run: npm publish --access public
