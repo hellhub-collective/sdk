@@ -29,23 +29,18 @@ export type FieldOperator<T, K extends keyof T> = {
   $equals?: T[K];
   $in?: Array<T[K]>;
   $notIn?: Array<T[K]>;
+  $lt?: T[K];
+  $gt?: T[K];
+  $lte?: T[K];
+  $gte?: T[K];
 } & (T[K] extends string
   ? {
       $search?: T[K];
       $contains?: T[K];
       $endsWith?: T[K];
       $startsWith?: T[K];
-      $lt?: T[K];
-      $gt?: T[K];
-      $lte?: T[K];
-      $gte?: T[K];
     }
-  : {
-      $lt?: T[K];
-      $gt?: T[K];
-      $lte?: T[K];
-      $gte?: T[K];
-    });
+  : {});
 
 export interface RootOperator<T> {
   $or?: Array<Filter<Defined<T>>>;

@@ -41,7 +41,9 @@ export interface Faction extends RemoteEntity {
 export interface Planet extends RemoteEntity {
   name: string;
   owner?: Faction;
+  ownerId: number;
   sector: Sector;
+  sectorId: number;
   health: number;
   orders?: Order[];
   maxHealth: number;
@@ -50,18 +52,22 @@ export interface Planet extends RemoteEntity {
   positionX: number;
   positionY: number;
   statistics?: Stat;
+  statisticId: number;
   attacking: Attack[];
   defending: Attack[];
   campaign?: Campaign;
   regeneration: number;
   homeWorld?: HomeWorld;
   initialOwner?: Faction;
+  initialOwnerId: number;
   globalEvent?: GlobalEvent;
+  globalEventId: number;
 }
 
 export interface GlobalEvent extends RemoteEntity {
   title: string;
   faction?: Faction;
+  factionId: number;
   message: string;
   planets: Planet[];
 }
@@ -70,23 +76,31 @@ export interface Campaign extends RemoteEntity {
   type: number;
   count: number;
   planet?: Planet;
+  planetId: number;
   orders?: Order[];
 }
 
 export interface HomeWorld extends RemoteEntity {
   faction?: Faction;
+  factionId: number;
   planet?: Planet;
+  planetId: number;
 }
 
 export interface Attack extends RemoteEntity {
   target?: Planet;
+  targetId: number;
   source?: Planet;
+  sourceId: number;
 }
 
 export interface Order extends RemoteEntity {
   planet?: Planet;
+  planetId?: number;
   faction?: Faction;
+  factionId?: number;
   campaign?: Campaign;
+  campaignId?: number;
   eventType: "DEFEND" | "ATTACK";
   health: number;
   maxHealth: number;
@@ -146,6 +160,7 @@ export interface Assignment extends RemoteEntity {
   title: string;
   briefing: string;
   reward?: Reward;
+  rewardId: number;
   progress: number;
   expiresAt: string;
   description: string;
