@@ -29,7 +29,7 @@ export function generateDynamicRequestFn<T extends Entity>(entity: string) {
     if (typeof input === "object" || input === undefined) {
       return request(entity, {
         ...options,
-        ...(!!input ? input : ({} as any)),
+        ...(!!input ? { query: input } : ({} as any)),
       }) as Promise<APIResponse<T[]>>;
     } else {
       return request(`${entity}/${input}`, {
