@@ -10,8 +10,8 @@
 <br />
 
 <p align="center">
-   <a href="https://github.com/hellhub-collective/sdk/actions/workflows/github-code-scanning/codeql">
-    <img src="https://github.com/hellhub-collective/sdk/actions/workflows/github-code-scanning/codeql/badge.svg?branch=main" alt="Tests" />
+  <a href="https://github.com/hellhub-collective/sdk/actions/workflows/github-code-scanning/codeql">
+    <img src="https://github.com/hellhub-collective/sdk/actions/workflows/github-code-scanning/codeql/badge.svg?branch=main" alt="CodeQL" />
   </a>
   <a href="https://github.com/hellhub-collective/sdk/actions/workflows/test.yml">
     <img src="https://github.com/hellhub-collective/sdk/actions/workflows/test.yml/badge.svg" alt="Tests" />
@@ -20,7 +20,7 @@
     <img src="https://img.shields.io/bundlephobia/min/@hellhub-collective/sdk" alt="Bundle Size (Minified)" />
   </a>
   <a href="https://bundlephobia.com/package/@hellhub-collective/sdk">
-    <img src="https://img.shields.io/bundlephobia/minzip/@hellhub-collective/sdk" alt="alt="Bundle Size (Minified & Zipped)" />
+    <img src="https://img.shields.io/bundlephobia/minzip/@hellhub-collective/sdk" alt="Bundle Size (Minified & Zipped)" />
   </a>
 </p>
 
@@ -30,7 +30,7 @@ The HellHub SDK is a TypeScript library that provides a simple and easy-to-use i
 
 ## Installation
 
-To install the HellHub SDK, you can use npm or yarn or bun. For simplicity, we will use bun in this example:
+To install the HellHub SDK, you can use npm, yarn or bun. For simplicity, we will use bun in this example:
 
 ```bash
 bun add @hellhub-collective/sdk
@@ -38,7 +38,7 @@ bun add @hellhub-collective/sdk
 
 ## Usage
 
-To use the HellHub SDK, you will need to import the `HellHub` class from the `@hellhub/sdk` package.
+To use the HellHub SDK, you will need to import the `HellHub` class from the `@hellhub-collective/sdk` package.
 
 ```typescript
 import HellHub from "@hellhub-collective/sdk";
@@ -53,12 +53,10 @@ const response = await HellHub.planets(1);
 // get a list of all planets
 const response = await HellHub.planets();
 
-// get a list of planets with a filter
+// get a list of planets with a filter and limit
 const response = await HellHub.planets({
   limit: 15,
-  filters: {
-    name: { $contains: "a", mode: "insensitive" },
-  },
+  filters: { name: { $contains: "Earth" } },
 });
 ```
 
@@ -72,9 +70,7 @@ import HellHub, { type Planet } from "@hellhub-collective/sdk";
 const response = await HellHub.request<Planet[]>("/sectors/1/planets", {
   query: {
     limit: 15,
-    filters: {
-      name: { $contains: "a", mode: "insensitive" },
-    },
+    filters: { name: { $contains: "Earth" } },
   },
 });
 ```
