@@ -51,7 +51,7 @@ export interface Planet extends RemoteEntity {
   disabled: boolean;
   positionX: number;
   positionY: number;
-  statistics?: Stat;
+  statistic?: Stat;
   statisticId: number;
   attacking: Attack[];
   defending: Attack[];
