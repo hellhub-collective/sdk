@@ -48,6 +48,9 @@ export interface Planet extends RemoteEntity {
   orders?: Order[];
   maxHealth: number;
   players: number;
+  liberation: number;
+  liberationRate: number;
+  liberationState: "WINNING" | "DRAW" | "LOSING" | "N/A";
   disabled: boolean;
   positionX: number;
   positionY: number;
