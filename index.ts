@@ -8,7 +8,9 @@ import {
 import type {
   War,
   Stat,
+  Biome,
   Order,
+  Effect,
   Attack,
   Planet,
   Sector,
@@ -156,7 +158,7 @@ class SDK {
    *
    * Endpoint: `/api/biomes(/:id)`
    */
-  biomes = generateDynamicRequestFn<Assignment>("biomes");
+  biomes = generateDynamicRequestFn<Biome>("biomes");
 
   /**
    * ### Environmental Effects
@@ -166,7 +168,7 @@ class SDK {
    *
    * Endpoint: `/api/effects(/:id)`
    */
-  effects = generateDynamicRequestFn<Assignment>("effects");
+  effects = generateDynamicRequestFn<Effect>("effects");
 }
 
 const HellHub = SDK.getInstance();
