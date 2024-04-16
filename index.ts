@@ -148,6 +148,25 @@ class SDK {
    * Endpoint: `/api/assignments(/:id)`
    */
   assignments = generateDynamicRequestFn<Assignment>("assignments");
+
+  /**
+   * ### Biomes
+   *
+   * Describe the planets fauna and flora, each planet must have a distinct biome.
+   *
+   * Endpoint: `/api/biomes(/:id)`
+   */
+  biomes = generateDynamicRequestFn<Assignment>("biomes");
+
+  /**
+   * ### Environmental Effects
+   *
+   * Effects that influence the player, can also be physical events like meteor showers,
+   * fire tornadoes etc.
+   *
+   * Endpoint: `/api/effects(/:id)`
+   */
+  effects = generateDynamicRequestFn<Assignment>("effects");
 }
 
 const HellHub = SDK.getInstance();
