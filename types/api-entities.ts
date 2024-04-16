@@ -44,6 +44,9 @@ export interface Planet extends RemoteEntity {
   ownerId: number;
   sector: Sector;
   sectorId: number;
+  effects: Effect[];
+  biome: Biome;
+  biomeId: number;
   health: number;
   orders?: Order[];
   maxHealth: number;
@@ -167,6 +170,20 @@ export interface Assignment extends RemoteEntity {
   progress: number;
   expiresAt: string;
   description: string;
+}
+
+export interface Biome extends Entity {
+  index: string;
+  name: string;
+  description: string;
+  planets: Planet[];
+}
+
+export interface Effect extends Entity {
+  index: string;
+  name: string;
+  description: string;
+  planets: Planet[];
 }
 
 /**
