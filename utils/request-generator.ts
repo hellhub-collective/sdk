@@ -8,7 +8,7 @@ import type {
 } from "types/api-entities";
 
 /**
- * Creates a request function for a given entity, which can be used to fetch
+ * Creates a request function for a given endpoint, which can be used to fetch
  * from a endpoint that does not support any query parameters.
  */
 export function generatePrimitiveRequestFn<T extends Entity>(entity: string) {
