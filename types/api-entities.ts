@@ -4,6 +4,18 @@ import type { QueryOptions } from "types/query-generator";
  * Base types
  */
 
+export interface Cron {
+  name: string;
+  pattern: string;
+  status: "ok" | "stopped";
+  busy: boolean;
+  runs: {
+    next: number | null;
+    current: number | null;
+    previous: number | null;
+  };
+}
+
 export interface Entity {
   id: number;
   createdAt: string;

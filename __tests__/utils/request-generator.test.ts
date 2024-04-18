@@ -2,11 +2,36 @@ import "__mocks__/utils/request";
 
 import {
   generateDynamicRequestFn,
+  generatePrimitiveRequestFn,
   generateSingleRequestFn,
 } from "utils/request-generator";
 
 import { it, expect } from "bun:test";
-import type { Planet } from "types/api-entities";
+import type { Cron, Planet } from "types/api-entities";
+
+it("PrimitiveRequestFn works as expected", async () => {
+  // @ts-expect-error
+  const primitiveRequest = generatePrimitiveRequestFn<Cron>("/api/crons");
+
+  const response1 = await primitiveRequest("refresh_from_source");
+  const response2 = await primitiveRequest();
+
+  expect(response1.ok).toBe(true);
+  expect(response2.ok).toBe(true);
+
+  expect(response1.url).toBe("/api/crons/refresh_from_source");
+  expect(response2.url).toBe("/api/crons");
+
+  const json1 = await response1.json();
+  const json2 = await response2.json();
+
+  expect(json1).toHaveProperty("data", null);
+  expect(json1).toHaveProperty("error", null);
+
+  expect(json2).toHaveProperty("data", null);
+  expect(json2).toHaveProperty("error", null);
+  expect(json2).toHaveProperty("pagination", null);
+});
 
 it("SingleRequestFn works as expected", async () => {
   const singleRequest = generateSingleRequestFn<Planet>("https://example.com");
