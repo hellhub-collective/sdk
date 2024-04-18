@@ -1,13 +1,15 @@
 import { request } from "utils/request";
 
 import {
-  generateDynamicRequestFn,
   generateSingleRequestFn,
+  generateDynamicRequestFn,
+  generatePrimitiveRequestFn,
 } from "utils/request-generator";
 
 import type {
   War,
   Stat,
+  Cron,
   Biome,
   Order,
   Effect,
@@ -169,6 +171,15 @@ class SDK {
    * Endpoint: `/api/effects(/:id)`
    */
   effects = generateDynamicRequestFn<Effect>("effects");
+
+  /**
+   * ### Crons
+   *
+   * Allows you to track the internal cron jobs. Fine tune your periodic requests to the
+   * API and avoid hitting request limits by over fetching.
+   */
+  // @ts-ignore
+  crons = generatePrimitiveRequestFn<Cron>("crons");
 }
 
 const HellHub = SDK.getInstance();
