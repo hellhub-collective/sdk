@@ -56,6 +56,7 @@ export interface Planet extends RemoteEntity {
   ownerId: number;
   sector: Sector;
   sectorId: number;
+  imageUrl: string;
   effects: Effect[];
   biome: Biome;
   biomeId: number;
