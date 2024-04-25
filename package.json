@@ -3,7 +3,7 @@
   "license": "MIT",
   "private": false,
   "description": "The official SDK for HellHub API. Filter and collect data with full type safety out of the box.",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "main": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "keywords": [
