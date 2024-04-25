@@ -174,15 +174,24 @@ export interface Reward extends RemoteEntity {
   assignment?: Assignment;
 }
 
+export interface AssignmentTask extends Entity {
+  type: number;
+  values: number[];
+  valueTypes: number[];
+  assignmentId: number;
+  assignment?: Assignment;
+}
+
 export interface Assignment extends RemoteEntity {
   type: number;
   title: string;
   briefing: string;
   reward?: Reward;
   rewardId: number;
-  progress: number;
+  progress: number[];
   expiresAt: string;
   description: string;
+  tasks: AssignmentTask[];
 }
 
 export interface Biome extends Entity {
